@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { registerRequest } from "../lib/auth";
 import Button from "../components/common/Button";
 import Alert from "../components/common/Alert";
-import { API_BASE_URL } from "../lib/config";
+import { API_BASE_URL, API_CONFIG_ERROR } from "../lib/config";
 
 export default function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -18,8 +18,9 @@ export default function Register() {
       navigate("/");
     } catch (err) {
       setError(
+        API_CONFIG_ERROR ||
         err.response?.data?.message ||
-          `Register failed. Check backend URL/CORS (API: ${API_BASE_URL}).`
+          `Register failed. Check backend URL/CORS (API: ${API_BASE_URL || "NOT_SET"}).`
       );
     }
   }

@@ -3,7 +3,7 @@ import { API_BASE_URL } from "./config";
 import { useAuthStore } from "../store/authStore";
 
 const apiClient = axios.create({
-  baseURL: `${API_BASE_URL}/api`,
+  baseURL: API_BASE_URL ? `${API_BASE_URL}/api` : "/api",
   withCredentials: true
 });
 
@@ -43,6 +43,9 @@ apiClient.interceptors.response.use(
     isRefreshing = true;
 
     try {
+      if (!API_BASE_URL) {
+        throw new Error("Missing VITE_API_BASE_URL in deployment environment.");
+      }
       const { data } = await axios.post(`${API_BASE_URL}/api/auth/refresh`, {}, { withCredentials: true });
       useAuthStore.getState().setAccessToken(data.access_token);
       flushQueue(null, data.access_token);

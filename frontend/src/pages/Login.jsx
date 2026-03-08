@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loginRequest } from "../lib/auth";
 import ChatAssistant from "../components/Chat/ChatAssistant";
-import { API_BASE_URL } from "../lib/config";
+import { API_BASE_URL, API_CONFIG_ERROR } from "../lib/config";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -18,8 +18,9 @@ export default function Login() {
       navigate(location.state?.from?.pathname || "/", { replace: true });
     } catch (err) {
       setError(
+        API_CONFIG_ERROR ||
         err.response?.data?.message ||
-          `Login failed. Check backend URL/CORS (API: ${API_BASE_URL}).`
+          `Login failed. Check backend URL/CORS (API: ${API_BASE_URL || "NOT_SET"}).`
       );
     }
   }
