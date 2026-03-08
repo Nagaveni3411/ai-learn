@@ -17,6 +17,6 @@ module.exports = {
   JWT_REFRESH_EXPIRES_IN: process.env.JWT_REFRESH_EXPIRES_IN || "30d",
   OPENAI_API_KEY: process.env.OPENAI_API_KEY || "",
   OPENAI_MODEL: process.env.OPENAI_MODEL || "gpt-4.1-mini",
-  CORS_ORIGIN: process.env.CORS_ORIGIN || "http://localhost:5173",
-  COOKIE_DOMAIN: process.env.COOKIE_DOMAIN || "localhost"
+  CORS_ORIGIN: process.env.CORS_ORIGIN || "",
+  COOKIE_DOMAIN: process.env.COOKIE_DOMAIN || ""
 };
